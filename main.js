@@ -5,9 +5,21 @@ const button = document.getElementById('button')
 const contactList = document.querySelector('.contacts')
 
 const store = window.localStorage
-const keysMemo = []
 
-button.addEventListener('click', () => {
+button.addEventListener('click', (e) => {
+	e.preventDefault()
+
+	if(contactName.value === "" || number.value === "" || address.value === ""){
+		return (
+			Swal.fire({
+				title: 'Error',
+				text: 'Debes completar todos los campos',
+				icon: 'error',
+				confirmButtonText: 'Aceptar',
+			})
+		)
+	}
+
 	const contact = {
 		id: Date.now(),
 		name: contactName.value,
@@ -15,80 +27,14 @@ button.addEventListener('click', () => {
 		address: address.value,
 	}
 
-	createContact(contact)
+	createContact(store, contact)
 	loadContacts(store, contactList)
 
+	// Reseteo de los campos del formulario
 	contactName.value = ''
 	number.value = ''
 	address.value = ''
 })
 
-const createContact = contact => store.setItem(contact.id, JSON.stringify(contact))
-
-const sortContacts = (array) =>{
-	let swapped = true
-	do {
-		swapped = false
-		for (let i = 0; i < array.length; i++) {
-			if(array[i] > array[i + 1]){
-				let temp = array[i]
-				array[i] = array[i + 1]
-				array[i + 1] = temp
-				swapped = true
-			}
-		}
-	} while (swapped);
-	return array
-}
-
-const removeContact = (id) => {
-	store.removeItem(id)
-	window.location.href = '/'
-}
-
-const loadContacts = (store, node) =>{
-	const contactKeys = Object.keys(store)
-
-	const sortContactKeys = sortContacts(contactKeys)
-
-	sortContactKeys.map(key => {
-		const data = (JSON.parse(store.getItem(key)))
-
-		if (!keysMemo.includes(data.id)){
-			keysMemo.push(data.id)
-			const contact = [
-				data.name,
-				data.number,
-				data.address,
-				'delete_forever'
-			]
-	
-			const divContact = document.createElement('div')
-			divContact.classList.add('contacts__contact')
-	
-			const contactElements = [
-				nameContact = document.createElement('p'),
-				numberContact = document.createElement('p'),
-				addressContact = document.createElement('p'),
-				iconDelete = document.createElement('span')
-			]
-	
-			contactElements[3].classList.add('material-icons')
-			contactElements[3].onclick = () =>{
-				removeContact(data.id)
-			}
-	
-			contactElements.map(element =>{
-				const index = contactElements.indexOf(element);
-				element.innerHTML = contact[index]
-				divContact.appendChild(element)
-			})
-	
-			node.appendChild(divContact)
-		}		
-	})
-}
 
 loadContacts(store, contactList)
-
-// ORDENAR FUNCIONES Y AGREGAR COMENTARIOS

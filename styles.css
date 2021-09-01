@@ -92,3 +92,20 @@ input[type=number]::-webkit-outer-spin-button {
 .contacts span:hover, .form button:hover{
     cursor: pointer;
 }
+
+.swal2-popup{
+    background-color: #181818;
+}
+
+.swal2-title, .swal2-html-container{
+    font-family: 'Oswald', sans-serif;
+    color: white;
+}
+
+.swal2-confirm.swal2-styled{
+    background-color: #0791E6;
+}
+
+.swal2-styled.swal2-confirm:focus{
+    box-shadow: none;
+}

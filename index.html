@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -21,13 +22,12 @@
 			<h1>AGENDA DE CONTACTOS</h1>
 		</header>
 		<main>
-			<!-- AGREGAR VALIDACION PARA QUE TODOS LOS CAMPOS SEAN REQUERIDOS -->
-			<section class="form">
+			<form class="form">
 				<input type="text" placeholder="Nombre" id="name" />
 				<input type="number" placeholder="Número" id="number" />
 				<input type="text" placeholder="Dirección" id="address" />
 				<button id="button">Agregar Contacto</button>
-			</section>
+			</form>
 			<section class="contacts">
 				<div class="contacts__contact title">
 					<p>Nombre</p>
@@ -38,6 +38,7 @@
 			</section>
 		</main>
 
+		<script src="utils.js"></script>
 		<script src="main.js"></script>
 	</body>
 </html>
